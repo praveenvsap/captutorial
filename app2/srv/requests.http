@@ -1,0 +1,2 @@
+### FUNCTION someFunction
+GET http://localhost:4005/service/app2/someFunction()

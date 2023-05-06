@@ -1,15 +1,14 @@
 {
-  "name": "app1",
+  "name": "app2",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@milton/app1": "../app1",
     "@sap/cds": "^6",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
-    "express": "^4",
-    "uuid": "^9.0.0"
+    "express": "^4"
   },
   "devDependencies": {
     "sqlite3": "^5.0.4"
@@ -19,12 +18,16 @@
   },
   "cds": {
     "requires": {
-       "db": {
-          "kind": "sql"
-       },
-       "messaging": {
-          "kind": "file-based-messaging"
-       }
+      "DemoService": {
+        "kind": "odata",
+        "model": "../app1/srv/demo-service"
+      },
+      "messaging": {
+        "kind": "file-based-messaging"
+      },
+      "db": {
+        "kind": "sql"
+      }
     }
- }
+  }
 }
