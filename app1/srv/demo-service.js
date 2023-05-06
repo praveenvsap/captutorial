@@ -44,4 +44,19 @@ module.exports = (srv) => {
     //       });
     // });
   });
+
+  srv.on("CREATE", Employees, async (req, next) => {
+    await next();
+  });
+
+  srv.on("CREATE", Departments, async (req, next) => {
+    await next();
+
+    // let { name } = req.data;
+    // let { ID } = uuidv4();
+    // let entry = { ID, name };
+    // await INSERT.into(Departments).entries(entry);
+
+    // return entry;
+  });
 };
