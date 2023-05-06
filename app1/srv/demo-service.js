@@ -20,10 +20,15 @@ module.exports = (srv) => {
   });
 
   srv.on("READ", Employees, async (req, next) => {
+    await srv.emit("demoEvent", { foo: 11, bar: "12" });
     await next();
 
     // return await SELECT.from(Employees);
   });
+
+  srv.on("demoEvent", (msg) => console.log("Handler 1 (Demo Service):", msg));
+
+  srv.on("demoEvent", (msg) => console.log("Handler 2 (Demo Service):", msg));
 
   srv.on("READ", Departments, async (req, next) => {
     await next();
@@ -62,14 +67,11 @@ module.exports = (srv) => {
     // return entry;
   });
 
-  cds.spawn({ user: privileged, every: 5000 }, async () => {
-    console.log("Running scheduled task every 5 seconds...");
-    // await UPDATE(Employees).with({ experience: { "+=": 1 } });
+//   cds.spawn({ user: privileged, every: 5000 }, async () => {
+//     console.log("Running scheduled task every 5 seconds...");
+//     await UPDATE(Employees).with({ experience: { "+=": 1 } });
 
-    await srv.emit("some event", { foo: 11, bar: "12" });
-  });
+//     await srv.emit("some event", { foo: 11, bar: "12" });
+//   });
 
-  srv.on("some event", (msg) => console.log("Handler 1:", msg));
-
-  srv.on("some event", (msg) => console.log("Handler 2:", msg));
 };
