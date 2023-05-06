@@ -1,4 +1,5 @@
 const cds = require("@sap/cds");
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = (srv) => {
   const { Employees, Departments } = srv.entities;
