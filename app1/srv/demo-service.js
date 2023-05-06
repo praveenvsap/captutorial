@@ -1,4 +1,6 @@
 const cds = require("@sap/cds");
+const { v4: uuidv4 } = require("uuid");
+const privileged = new cds.User.Privileged();
 
 module.exports = (srv) => {
   const { Employees, Departments } = srv.entities;
@@ -58,5 +60,11 @@ module.exports = (srv) => {
     // await INSERT.into(Departments).entries(entry);
 
     // return entry;
+  });
+
+  cds.spawn({ user: privileged, every: 5000 }, async () => {
+    console.log("Running scheduled task every 5 seconds...");
+    await UPDATE(Employees).with({ experience: { "+=": 1 } });
+    return true;
   });
 };
