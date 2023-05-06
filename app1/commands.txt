@@ -1,0 +1,8 @@
+rm app1.db
+cds deploy --to sqlite:app1.db
+cds watch
+
+sqlite3
+.open app1.db
+.tables
+.schema table_name

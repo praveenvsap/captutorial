@@ -19,12 +19,15 @@
   },
   "cds": {
     "requires": {
-       "db": {
-          "kind": "sql"
-       },
-       "messaging": {
-          "kind": "file-based-messaging"
-       }
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "app1.db"
+        }
+      },
+      "messaging": {
+        "kind": "file-based-messaging"
+      }
     }
- }
+  }
 }
