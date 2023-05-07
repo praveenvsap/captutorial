@@ -1,3 +1,6 @@
+SQLITE SETUP:
+----------------------------------------------------------------------------------------
+
 rm app1.db
 cds deploy --to sqlite:app1.db
 cds watch
@@ -6,3 +9,20 @@ sqlite3
 .open app1.db
 .tables
 .schema table_name
+
+
+HANA SETUP:
+----------------------------------------------------------------------------------------
+cds add hana
+cds add mta
+cds build/all
+mbt build
+cf deploy mta_archives/app1_1.0.0.mtar
+
+CLEANUP:
+----------------------------------------------------------------------------------------
+
+cf d app1-srv -r -f
+cf d app1-db-deployer -r -f
+cf ds app1-db -f
+

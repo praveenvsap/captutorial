@@ -7,8 +7,13 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^6",
+    "@sap/cds-dk": "^6.8.0",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/xsenv": "^3.4.0",
+    "@sap/xssec": "^3.2.17",
     "express": "^4",
+    "hdb": "^0.19.5",
+    "passport": "^0.6.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -20,10 +25,10 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "database": "app1.db"
-        }
+        "kind": "hana-cloud"
+      },
+      "auth": {
+        "kind": "xsuaa"
       },
       "messaging": {
         "kind": "file-based-messaging"
