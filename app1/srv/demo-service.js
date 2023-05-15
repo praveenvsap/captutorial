@@ -2,8 +2,11 @@ const cds = require("@sap/cds");
 const { v4: uuidv4 } = require("uuid");
 const privileged = new cds.User.Privileged();
 
-module.exports = (srv) => {
-  const { Employees, Departments } = srv.entities;
+module.exports = async (srv) => {
+  const { Employees, Departments, BusinessPartners } = srv.entities;
+
+  // connect to remote service
+  const S4HANAService = await cds.connect.to("API_BUSINESS_PARTNER");
 
   srv.before("*", (req) => {
     //   let results = {};
@@ -67,11 +70,25 @@ module.exports = (srv) => {
     // return entry;
   });
 
-//   cds.spawn({ user: privileged, every: 5000 }, async () => {
-//     console.log("Running scheduled task every 5 seconds...");
-//     await UPDATE(Employees).with({ experience: { "+=": 1 } });
+  //   cds.spawn({ user: privileged, every: 5000 }, async () => {
+  //     console.log("Running scheduled task every 5 seconds...");
+  //     await UPDATE(Employees).with({ experience: { "+=": 1 } });
 
-//     await srv.emit("some event", { foo: 11, bar: "12" });
-//   });
+  //     await srv.emit("some event", { foo: 11, bar: "12" });
+  //   });
 
+  srv.on("READ", BusinessPartners, async (req) => {
+    req.query.where("LastName <> '' and FirstName <> '' ");
+    try {
+      const tx = S4HANAService.transaction(req);
+      return await tx.send({
+        query: req.query,
+        headers: {
+          apikey: process.env.apikey,
+        },
+      });
+    } catch (err) {
+      req.reject(err);
+    }
+  });
 };

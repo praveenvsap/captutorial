@@ -39,3 +39,7 @@ Content-Type: application/json
 {
     "name": "Math"
 }
+
+### GET BusinessPartners
+GET http://localhost:4004/v2/service/demo/BusinessPartners
+

@@ -14,4 +14,6 @@ service DemoService {
         bar: String;
     }
 
+    @readonly
+    entity BusinessPartners as projection on demo.BusinessPartners;
 }
