@@ -1,0 +1,121 @@
+{
+  "name": "multitenant",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap-cloud-sdk/core": "^1.54.2",
+    "@sap/audit-logging": "^5.7.0",
+    "@sap/cds": "^6.8.1",
+    "@sap/cds-mtx": "^2.6.4",
+    "@sap/xsenv": "^3.4.0",
+    "@sap/xssec": "^3.2.17",
+    "cfenv": "^1.2.4",
+    "colors": "^1.4.0",
+    "debug": "^4.3.4",
+    "express": "^4.18.2",
+    "hdb": "^0.19.5",
+    "passport": "^0.6.0"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.1.6"
+  },
+  "scripts": {
+    "start": "cds run"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "auth": {
+        "[production]": {
+          "strategy": "JWT"
+        },
+        "[development]": {
+          "strategy": "mock",
+          "users": {
+            "joe": {
+              "roles": [
+                "Admin",
+                "Viewer"
+              ]
+            },
+            "julie": {
+              "roles": [
+                "Viewer"
+              ]
+            },
+            "bob": {
+              "roles": [
+                "Viewer"
+              ]
+            }
+          }
+        }
+      },
+      "db": {
+        "[production]": {
+          "kind": "hana-cloud"
+        },
+        "[development]": {
+          "kind": "sql"
+        },
+        "model": [
+          "db",
+          "srv"
+        ],
+        "vcap": {
+          "label": "service-manager"
+        }
+      },
+      "multitenancy": true
+    },
+    "mtx": {
+      "api": {
+        "provisioning": true,
+        "metadata": true,
+        "model": true
+      },
+      "element-prefix": [
+        "Z_",
+        "ZZ_"
+      ],
+      "namespace-blocklist": [
+        "com.sap.",
+        "sap.",
+        "multitenant."
+      ]
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
+  }
+}

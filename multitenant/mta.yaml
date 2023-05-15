@@ -1,0 +1,141 @@
+---
+_schema-version: "3.2"
+ID: multitenant
+version: 1.0.0
+description: "Multitenant CAP Application"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+        - npx -p @sap/cds-dk cds build --production
+
+modules:
+  # ------------------ APP ROUTER MODULE -----------------------
+  - name: multitenant
+    # ------------------------------------------------------------
+    type: approuter.nodejs
+    path: approuter
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+    parameters:
+      memory: 256M
+      disk-quota: 1024M
+      keep-existing-routes: true
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-${space}-${app-name}.${default-domain}"
+    requires:
+      - name: multitenant-uaa
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv
+          url: ~{srv-url}
+          timeout: 60000
+          forwardAuthToken: true
+    provides:
+      - name: app_api
+        properties:
+          url: ${default-url}
+          application: ${app-name}
+
+  - name: multitenant-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 512M
+      disk-quota: 1024M
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+    requires:
+      - name: multitenant-uaa
+      - name: multitenant-destination
+      - name: multitenant-registry
+      - name: multitenant-sm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+
+resources:
+  # ----------------------- UAA SERVICE ------------------------
+  - name: multitenant-uaa
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      xsuaa-app: ~{app_api/application}-${space}
+      config:
+        xsappname: ${xsuaa-app}
+    properties:
+      XSAPPNAME: ${xsuaa-app}
+    requires:
+      - name: app_api
+
+  # -------------------- DESTINATION SERVICE -------------------
+  - name: multitenant-destination
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        init_data:
+          instance:
+            existing_destinations_policy: ignore
+            destinations:
+              - Name: multitenant-cfapi
+                Description: CF Cloud Controller API
+                URL: ${controller-url}
+                Type: HTTP
+                ProxyType: Internet
+                Authentication: OAuth2Password
+                tokenServiceURL: ${authorization-url}/oauth/token
+                clientId: cf
+                clientSecret:
+                User: <SetValueInCockpit>
+                Password: <SetValueInCockpit>
+
+  # --------------------- REGISTRY SERVICE ---------------------
+  - name: multitenant-registry
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: multitenant-uaa
+    parameters:
+      service: saas-registry
+      service-plan: application
+      config:
+        xsappname: ~{multitenant-uaa/XSAPPNAME}
+        appName: multitenant
+        displayName: "Multitenant Program"
+        description: "Multitenant Program"
+        category: "multitenant Service"
+        appUrls:
+          onSubscription: https://${org}-${space}-multitenant-srv.${default-domain}/mtx/v1/provisioning/tenant/{tenantId}
+          getDependencies: https://${org}-${space}-multitenant-srv.${default-domain}/mtx/v1/provisioning/dependencies
+
+  # ------------------- SERVICE MANAGER SERVICE ----------------
+  - name: multitenant-sm
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: multitenant-uaa
+    parameters:
+      service: service-manager
+      service-plan: container
+      polling_timeout_seconds: 240
+      config:
+        acquireTimeoutMillis: max
+        polling_timeout_seconds: 480

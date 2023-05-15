@@ -1,0 +1,89 @@
+{
+  "xsappname": "multitenant-team3625",
+  "tenant-mode": "shared",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.mtcallback",
+      "description": "SaaS Provisioning",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
+    },
+    {
+      "name": "$XSAPPNAME.mtdeployment",
+      "description": "SaaS Model Upgrade"
+    },
+    {
+      "name": "$XSAPPNAME.MtxDiagnose",
+      "description": "SaaS Diagnose"
+    },
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Viewer"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Administrator"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA Token Exchange",
+      "scope-references": ["uaa.user"]
+    },
+    {
+      "name": "Viewer",
+      "description": "Viewer",
+      "scope-references": ["$XSAPPNAME.Viewer"]
+    },
+    {
+      "name": "Admin",
+      "description": "Administrator",
+      "scope-references": ["$XSAPPNAME.Admin"]
+    },
+    {
+      "name": "SaaSAdmin",
+      "description": "SaaS Administrator",
+      "scope-references": [
+        "$XSAPPNAME.mtcallback",
+        "$XSAPPNAME.mtdeployment",
+        "$XSAPPNAME.MtxDiagnose"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "multitenant Viewer",
+      "description": "Viewing access",
+      "role-template-references": ["$XSAPPNAME.Viewer"]
+    },
+    {
+      "name": "multitenant Administrator",
+      "description": "Administrative access",
+      "role-template-references": ["$XSAPPNAME.Admin"]
+    },
+    {
+      "name": "multitenant SaaS Administrator",
+      "description": "SaaS Administrative access",
+      "role-template-references": ["$XSAPPNAME.SaaSAdmin"]
+    }
+  ],
+  "authorities": [
+    "$XSAPPNAME.mtcallback",
+    "$XSAPPNAME.mtdeployment",
+    "$XSAPPNAME.MtxDiagnose"
+  ],
+  "oauth2-configuration": {
+    "token-validity": 3600,
+    "redirect-uris": [
+      "https://*.cfapps.*.hana.ondemand.com/**",
+      "https://*.authentication.*.hana.ondemand.com/**"
+    ]
+  }
+}

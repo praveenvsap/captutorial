@@ -1,0 +1,45 @@
+SETUP:
+----------------------------------------------------------------------------------------
+
+cf create-service xsuaa application multitenant-uaa -c xs-security.json
+cf create-service-key multitenant-uaa multitenant-uaa-key
+cf service-key multitenant-uaa multitenant-uaa-key
+
+mbt build
+cf deploy mta_archives/multitenant_1.0.0.mtar
+
+
+CLEANUP:
+----------------------------------------------------------------------------------------
+
+cf d multitenant -r -f
+cf d multitenant-srv -r -f
+cf ds multitenant-registry -f
+cf ds multitenant-sm -f
+cf dsk multitenant-uaa multitenant-uaa-key -f
+cf ds multitenant-uaa -f
+
+CLEANUP AND SETUP:
+----------------------------------------------------------------------------------------
+
+cf d multitenant -r -f
+cf d multitenant-srv -r -f
+cf ds multitenant-registry -f
+cf ds multitenant-sm -f
+cf dsk multitenant-uaa multitenant-uaa-key -f
+cf ds multitenant-uaa -f
+cf create-service xsuaa application multitenant-uaa -c xs-security.json
+cf create-service-key multitenant-uaa multitenant-uaa-key
+cf service-key multitenant-uaa multitenant-uaa-key
+mbt build
+cf deploy mta_archives/multitenant_1.0.0.mtar
+
+
+
+
+UPDATE SERVICE:
+----------------------------------------------------------------------------------------
+cf update-service multitenant-uaa -c xs-security.json
+cf restage multitenant-srv
+
+

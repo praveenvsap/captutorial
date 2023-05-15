@@ -1,0 +1,17 @@
+{
+  "welcomeFile": "/service/multitenant",
+  "authenticationMethod": "route",
+  "sessionTimeout": 30,
+  "logout": {
+    "logoutEndpoint": "/do/logout",
+    "logoutPage": "/"
+  },
+  "routes": [
+    {
+      "source": "^/service/(.*)$",
+      "authenticationType": "xsuaa",
+      "scope": "$XSAPPNAME.Viewer",
+      "destination": "srv"
+    }
+  ]
+}
