@@ -13,3 +13,7 @@ entity Departments : cuid {
     employees : Association to many Employees
                     on employees.department = $self;
 }
+
+entity Customers : cuid {
+    name      : String;
+}

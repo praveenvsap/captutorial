@@ -1,0 +1,14 @@
+{
+    "app1-db" : {
+        "object_owner": {
+            "container_roles": [
+                "demo::EXTERNAL_ACCESS_G#"
+            ]
+        },
+        "application_user": {
+            "container_roles" : [
+                "demo::EXTERNAL_ACCESS"
+            ]
+        }
+    }
+}

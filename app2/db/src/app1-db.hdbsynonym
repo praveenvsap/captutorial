@@ -1,0 +1,8 @@
+{
+    "CUSTOMERS_SYNONYM": {
+        "target": {
+            "object": "DEMO_CUSTOMERS",
+            "schema": "_PLACEHOLDER_"
+        }
+    }
+}

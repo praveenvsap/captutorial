@@ -1,0 +1,12 @@
+{
+    "role": {
+        "name": "demo::EXTERNAL_ACCESS",
+        "schema_privileges": [
+            {
+                "privileges": [
+                    "SELECT"
+                ]
+            }
+        ]
+    }
+}

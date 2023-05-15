@@ -6,9 +6,9 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@milton/app1": "../app1",
     "@sap/cds": "^6",
-    "express": "^4"
+    "express": "^4",
+    "hdb": "^0.19.0"
   },
   "devDependencies": {
     "sqlite3": "^5.0.4"
@@ -18,15 +18,8 @@
   },
   "cds": {
     "requires": {
-      "DemoService": {
-        "kind": "odata",
-        "model": "../app1/srv/demo-service"
-      },
-      "messaging": {
-        "kind": "file-based-messaging"
-      },
       "db": {
-        "kind": "sql"
+        "kind": "hana-cloud"
       }
     }
   }
