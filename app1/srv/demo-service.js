@@ -83,8 +83,7 @@ module.exports = async (srv) => {
   srv.on("READ", BusinessPartners, async (req) => {
     req.query.where("LastName <> '' and FirstName <> '' ");
     try {
-      const tx = S4HANAService.transaction(req);
-      return await tx.send({
+      return await S4HANAService.send({
         query: req.query,
         headers: {
           apikey: process.env.apikey,
