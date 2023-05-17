@@ -31,3 +31,11 @@ cf d app1-srv -r -f
 cf d app1-db-deployer -r -f
 cf ds app1-db -f
 
+
+SAP HANA SEQUENCE
+----------------------------------------------------------------------------------------
+
+CREATE SEQUENCE "ORDER_ID_SEQUENCE" START WITH 5001;
+SELECT "ORDER_ID_SEQUENCE".NEXTVAL FROM DUMMY;
+DROP SEQUENCE "ORDER_ID_SEQUENCE";
+

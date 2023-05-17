@@ -9,6 +9,8 @@ service DemoService {
 
     entity Customers as select from demo.Customers;
 
+    entity Orders as select from demo.Orders;
+
     event demoEvent: {
         foo: Integer;
         bar: String;

@@ -3,7 +3,10 @@ const { v4: uuidv4 } = require("uuid");
 const privileged = new cds.User.Privileged();
 
 module.exports = async (srv) => {
-  const { Employees, Departments, BusinessPartners } = srv.entities;
+  const { Employees, Departments, Orders, BusinessPartners } = srv.entities;
+
+  // connect to local db
+  const db = await cds.connect.to("db");
 
   // connect to remote service
   const S4HANAService = await cds.connect.to("API_BUSINESS_PARTNER");
@@ -90,5 +93,16 @@ module.exports = async (srv) => {
     } catch (err) {
       req.reject(err);
     }
+  });
+
+  srv.on("CREATE", Orders, async (req, next) => {
+
+    const getNextNumber = async (db) => {
+      let data = await db.run(`SELECT "ORDER_ID_SEQUENCE".NEXTVAL FROM DUMMY`);
+      return data[0]["ORDER_ID_SEQUENCE.NEXTVAL"]
+    }
+
+    req.data.orderId = await getNextNumber(db);
+    await next();
   });
 };

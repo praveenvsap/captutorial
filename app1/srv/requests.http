@@ -43,3 +43,14 @@ Content-Type: application/json
 ### GET BusinessPartners
 GET http://localhost:4004/v2/service/demo/BusinessPartners
 
+
+
+### POST Orders
+POST http://localhost:4004/service/demo/Orders
+Authorization: Basic bWlsdG9uOjEyMzQ=
+Content-Type: application/json
+
+{
+    "name": "Laptop Order"
+}
+
