@@ -106,6 +106,13 @@ resources:
                 clientSecret:
                 User: <SetValueInCockpit>
                 Password: <SetValueInCockpit>
+              - Name: multitenant-nw
+                Description: Northwind
+                URL: https://services.odata.org/v2/Northwind/Northwind.svc
+                Type: HTTP
+                ProxyType: Internet
+                Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
 
   # --------------------- REGISTRY SERVICE ---------------------
   - name: multitenant-registry
