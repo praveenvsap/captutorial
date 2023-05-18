@@ -10,19 +10,19 @@ build-parameters:
       commands:
         - npx -p @sap/cds-dk cds build --production
 modules:
-  - name: app1-srv
-    type: nodejs
-    path: gen/srv
+  - name: app1-srv # OData Service module
+    type: nodejs   # Type of module - nodejs 
+    path: gen/srv  # Path of compiled files - cds build/all puts all the files here...
     parameters:
-      buildpack: nodejs_buildpack
+      buildpack: nodejs_buildpack # buildpack is a reserved variable used during deployment
     build-parameters:
       builder: npm-ci
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
-          srv-url: ${default-url}
+          srv-url: ${default-url}  # note the syntax here...  This value will be populated by the system
     requires:
-      - name: app1-db
+      - name: app1-db  # External service required for this module to run
 
   - name: app1-db-deployer
     type: hdb
