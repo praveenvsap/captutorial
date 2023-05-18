@@ -22,7 +22,7 @@
       "db": {
         "kind": "sqlite",
         "credentials": {
-          "database": "app1.db"
+          "database": "app1.sqlite"
         }
       },
       "messaging": {

@@ -2,6 +2,11 @@ rm app1.db
 cds deploy --to sqlite:app1.db
 cds watch
 
+rm app1.db
+rm app1.sqlite
+cds deploy --to sqlite:app1.sqlite
+cds watch
+
 sqlite3
 .open app1.db
 .tables
