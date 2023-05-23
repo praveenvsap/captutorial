@@ -4,6 +4,7 @@
   "description": "Application Router",
   "main": "server.js",
   "scripts": {
+    "custom": "node custom.js",
     "start": "node node_modules/@sap/approuter/approuter.js"
   },
   "author": "Milton Chandradas",

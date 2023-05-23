@@ -41,7 +41,8 @@ cf install-plugin DefaultEnv
 cf de multitenant-srv
 CDS_ENV=production cds watch
 
-
+cf de multitenant
+npm run custom
 
 
 
