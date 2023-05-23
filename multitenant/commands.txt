@@ -35,6 +35,13 @@ mbt build
 cf deploy mta_archives/multitenant_1.0.0.mtar
 
 
+
+HDI CONTAINER:
+----------------------------------------------------------------------------------------
+cf install-plugin service-management
+cf smsi multitenant-sm -o SQLTools
+
+
 LOCAL DEVELOPMENT:
 ----------------------------------------------------------------------------------------
 cf install-plugin DefaultEnv

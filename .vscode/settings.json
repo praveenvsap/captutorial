@@ -1,15 +1,15 @@
 {
     "sqltools.connections": [
         {
-            "name": "multitenant-sm:9d09d174",
+            "name": "multitenant-sm:a7b75d68",
             "group": "SMSI",
             "dialect": "SAPHana",
             "driver": "SAPHana",
             "server": "0c0682ab-61ef-4ef0-ac09-5fab5ffb2cd6.hna0.prod-eu10.hanacloud.ondemand.com",
             "port": 443,
-            "database": "C461033D35034F93B77783123E00B2A2",
-            "username": "C461033D35034F93B77783123E00B2A2_6LB7Z7UW2LP3R8BJ86G3C5NPK_RT",
-            "password": "Mv2CWAWXgkPSxcCRepP73drohYiFILYh-l6LN.5FqQekMelnCBnQUh0YYGnPgQhHEDpwHfPgAFf9F-4vdXFA5_.HT2zfYhbD25ymBpFZnPtsoIJqpdZKyvo3vzfjMTvN",
+            "database": "D9A90BF7BC1144FE9AD3B928DC612331",
+            "username": "D9A90BF7BC1144FE9AD3B928DC612331_3IMXL110P65X1A23AXFJYLY98_RT",
+            "password": "Tz6AXq4y_F3IKnSRsWjfneB1xxRQXSUcaX7qcHJRku6G7uXp.Z1kWas52fIInVesX2GslBpnChi4eyy3XUaipqZPzBTgFb.Ms0ZQ8NhpAGLVpTZtMAFHhkG.W5kTop1B",
             "connectionTimeout": 30,
             "hanaOptions": {
                 "encrypt": true,
