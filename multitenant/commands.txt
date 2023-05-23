@@ -35,6 +35,15 @@ mbt build
 cf deploy mta_archives/multitenant_1.0.0.mtar
 
 
+LOCAL DEVELOPMENT:
+----------------------------------------------------------------------------------------
+cf install-plugin DefaultEnv
+cf de multitenant-srv
+CDS_ENV=production cds watch
+
+
+
+
 
 
 UPDATE SERVICE:
