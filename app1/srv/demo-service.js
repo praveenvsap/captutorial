@@ -18,30 +18,30 @@ module.exports = (srv) => {
   });
 
   srv.on("READ", Employees, async (req, next) => {
-    await next();
+    return await next();
 
     // return await SELECT.from(Employees);
   });
 
   srv.on("READ", Departments, async (req, next) => {
-    await next();
+    // return await next();
 
     // return await SELECT.from(Departments);
 
-    // if (!req.query.SELECT.columns)
-    //    await next();
+    if (!req.query.SELECT.columns)
+       return await next();
 
-    // const expandIndex = req.query.SELECT.columns.findIndex(
-    //    ({ expand, ref }) => expand && ref[0] === "employees"
-    // );
+    const expandIndex = req.query.SELECT.columns.findIndex(
+       ({ expand, ref }) => expand && ref[0] === "employees"
+    );
 
-    // if (expandIndex < 0) await next();
+    if (expandIndex < 0) return await next();
 
-    // return await SELECT.from(Departments, (department) => {
-    //    department.name,
-    //       department.employees((employee) => {
-    //          employee.name;
-    //       });
-    // });
+    return await SELECT.from(Departments, (department) => {
+       department.name,
+          department.employees((employee) => {
+             employee.name;
+          });
+    });
   });
 };
