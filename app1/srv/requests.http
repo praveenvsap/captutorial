@@ -45,6 +45,15 @@ GET http://localhost:4004/v2/service/demo/BusinessPartners
 
 
 
+### GET Orders
+GET http://localhost:4004/service/demo/Orders
+Authorization: Basic bWlsdG9uOjEyMzQ=
+
+
+### DELETE Orders
+DELETE http://localhost:4004/v2/service/demo/Orders(guid'7198ec9f-c0c6-4819-a2ff-cf31f6e8a951')
+Authorization: Basic bWlsdG9uOjEyMzQ=
+
 ### POST Orders
 POST http://localhost:4004/service/demo/Orders
 Authorization: Basic bWlsdG9uOjEyMzQ=

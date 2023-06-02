@@ -102,6 +102,6 @@ module.exports = async (srv) => {
     }
 
     req.data.orderId = await getNextNumber(db);
-    await next();
+    return await next();
   });
 };
