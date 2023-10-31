@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const cds = require("@sap/cds");
 const { v4: uuidv4 } = require("uuid");
 const privileged = new cds.User.Privileged();
