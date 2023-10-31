@@ -1,23 +1,23 @@
 ### GET Employees
 GET http://localhost:4004/service/demo/Employees
-Authorization: Basic bWlsdG9uOjEyMzQ=
+Authorization: Basic cHJhdmVlbjoxMjM0
 
 ### GET Departments
 GET http://localhost:4004/service/demo/Departments
-Authorization: Basic bWlsdG9uOjEyMzQ=
+Authorization: Basic cHJhdmVlbjoxMjM0
 
 ### GET Departments Expand Employees
 GET http://localhost:4004/service/demo/Departments?$expand=employees
-Authorization: Basic bWlsdG9uOjEyMzQ=
+Authorization: Basic cHJhdmVlbjoxMjM0
 
 ### GET Employees V2
 GET http://localhost:4004/v2/service/demo/Employees
-Authorization: Basic bWlsdG9uOjEyMzQ=
+Authorization: Basic cHJhdmVlbjoxMjM0
 
 ### GET Departments V2
 GET http://localhost:4004/v2/service/demo/Departments
-Authorization: Basic bWlsdG9uOjEyMzQ=
+Authorization: Basic cHJhdmVlbjoxMjM0
 
 ### GET Departments Expand Employees V2
 GET http://localhost:4004/v2/service/demo/Departments?$expand=employees
-Authorization: Basic bWlsdG9uOjEyMzQ=
+Authorization: Basic cHJhdmVlbjoxMjM0
