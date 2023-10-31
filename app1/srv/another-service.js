@@ -3,7 +3,7 @@ const cds = require("@sap/cds");
 module.exports = async (srv) => {
    const externalService = await cds.connect.to("DemoService");
    srv.on("getName", () => {
-      return "Milton";
+      return "Praveen";
    });
 
    externalService.on("demoEvent", (msg) =>

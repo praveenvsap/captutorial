@@ -1,6 +1,6 @@
 using {demo} from '../db/schema';
 
-@path : 'service/demo'
+@path : '/service/demo'
 service DemoService {
 
     entity Departments as select from demo.Departments;
