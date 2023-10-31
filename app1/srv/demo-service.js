@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 const cds = require("@sap/cds");
 
 module.exports = (srv) => {
