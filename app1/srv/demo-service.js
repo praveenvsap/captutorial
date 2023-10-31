@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-unused-vars */
 const cds = require("@sap/cds");
 
 module.exports = (srv) => {
@@ -20,7 +22,7 @@ module.exports = (srv) => {
   srv.on("READ", Employees, async (req, next) => {
     return await next();
 
-    // return await SELECT.from(Employees);
+    //return await SELECT.from(Employees).where({name: 'Praveen'});
   });
 
   srv.on("READ", Departments, async (req, next) => {
